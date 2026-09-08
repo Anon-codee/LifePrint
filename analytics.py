@@ -158,3 +158,54 @@ def relationship_label(strength):
 
     else:
         return "Very Weak"
+
+def discover_headache_relationships(df):
+    """
+    Discover relationships between health variables
+    and headache events using correlation.
+    """
+
+    features = [
+        "sleep_hours",
+        "hydration_liters",
+        "stress",
+        "activity_steps",
+        "caffeine"
+    ]
+
+    relationships = []
+
+    for feature in features:
+
+        correlation = df[feature].corr(
+            df["headache"]
+        )
+
+        relationships.append({
+            "feature": feature,
+            "correlation": round(float(correlation), 3),
+            "strength": round(abs(float(correlation)), 3)
+        })
+
+    # Strongest relationships first
+    relationships.sort(
+        key=lambda x: x["strength"],
+        reverse=True
+    )
+
+    return relationships
+
+
+def relationship_label(strength):
+
+    if strength >= 0.5:
+        return "Strong"
+
+    elif strength >= 0.3:
+        return "Moderate"
+
+    elif strength >= 0.15:
+        return "Weak"
+
+    else:
+        return "Very Weak"

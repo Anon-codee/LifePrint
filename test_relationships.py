@@ -13,7 +13,7 @@ df = pd.read_csv(
 relationships = discover_headache_relationships(df)
 
 
-print("\n========== PERSONAL HEALTH GRAPH ==========\n")
+print("\n========== PERSONAL HEALTH RELATIONSHIPS ==========\n")
 
 for relationship in relationships:
 
@@ -25,6 +25,7 @@ for relationship in relationships:
 
     print(
         f"{feature:20} "
-        f"{correlation:+.3f} "
-        f"{label}"
+        f"correlation: {correlation:+.3f} "
+        f"strength: {strength:.3f} "
+        f"({label})"
     )
