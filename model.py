@@ -48,3 +48,32 @@ def predict_headache(model, health_data):
     )[0][1]
 
     return probability
+
+def explain_prediction(model, health_data):
+    """
+    Explain the prediction using the model's
+    feature importances and the current values.
+    """
+
+    explanations = []
+
+    for feature, importance in zip(
+        FEATURES,
+        model.feature_importances_
+    ):
+
+        explanations.append({
+            "feature": feature,
+            "importance": round(
+                float(importance),
+                3
+            ),
+            "current_value": health_data[feature]
+        })
+
+    explanations.sort(
+        key=lambda x: x["importance"],
+        reverse=True
+    )
+
+    return explanations
